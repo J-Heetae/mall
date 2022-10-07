@@ -9,6 +9,7 @@ import project.mall.repository.ItemRepository;
 import project.mall.repository.MemberRepository;
 import project.mall.repository.OrderRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -56,4 +57,11 @@ public class OrderService {
         order.cancel();
     }
 
+    /**
+     * 주문 검색
+     * 회원 아이디, 주문 상태
+     * */
+    public List<Order> findOrders(OrderSearch orderSearch) {
+        return orderRepository.search(orderSearch);
+    }
 }

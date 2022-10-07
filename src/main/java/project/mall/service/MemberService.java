@@ -27,24 +27,39 @@ public class MemberService {
         memberRepository.save(member);
         log.info("MemberService.join 성공");
         return member.getId();
-        
+
     }
+
+    /**
+     * 로그인
+     * @return null 로그인 실패
+     */
+    public Member login(String userId, String pwd) {
+
+//        Optional<Member> findMemberOptional = memberRepository.findByUserId(userId);
+//        Member member = findMemberOptional.get();
+//        if(member.getPwd().equals(password)) {
+//            return member;
+//        } else {
+//            return null;
+//        }
+
+        return memberRepository.findByUserId(userId)
+                .filter(m -> m.getPwd().equals(pwd))
+                .orElse(null);
+
+    }
+
 
     private void validateDuplicateMember(Member member) {
         Optional<Member> findMemberByUserId = memberRepository.findByUserId(member.getUserId());
-        if(findMemberByUserId.isPresent()) {
-            throw new IllegalStateException("이미 존재하는 회원명입니다.");
-        }
+        if(findMemberByUserId.isPresent()) throw new IllegalStateException("이미 존재하는 회원명입니다.");
 
         Optional<Member> findMemberByEmail = memberRepository.findByEmail(member.getEmail());
-        if(findMemberByEmail.isPresent()) {
-            throw new IllegalStateException("이미 존재하는 이메일입니다.");
-        }
+        if(findMemberByEmail.isPresent()) throw new IllegalStateException("이미 존재하는 이메일입니다.");
 
         Optional<Member> findMemberByPhone = memberRepository.findByPhone(member.getPhone());
-        if(findMemberByPhone.isPresent()) {
-            throw new IllegalStateException("이미 존재하는 전화번호입니다.");
-        }
+        if(findMemberByPhone.isPresent()) throw new IllegalStateException("이미 존재하는 전화번호입니다.");
     }
 
     /**
@@ -52,5 +67,10 @@ public class MemberService {
      */
     public List<Member> findMembers() {
         return memberRepository.findAll();
+    }
+
+    public Member findById(Long memberId) {
+        Optional<Member> findMember = memberRepository.findById(memberId);
+        return findMember.orElse(null);
     }
 }
