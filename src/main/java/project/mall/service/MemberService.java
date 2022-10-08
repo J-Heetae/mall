@@ -36,20 +36,11 @@ public class MemberService {
      */
     public Member login(String userId, String pwd) {
 
-//        Optional<Member> findMemberOptional = memberRepository.findByUserId(userId);
-//        Member member = findMemberOptional.get();
-//        if(member.getPwd().equals(password)) {
-//            return member;
-//        } else {
-//            return null;
-//        }
-
         return memberRepository.findByUserId(userId)
                 .filter(m -> m.getPwd().equals(pwd))
                 .orElse(null);
 
     }
-
 
     private void validateDuplicateMember(Member member) {
         Optional<Member> findMemberByUserId = memberRepository.findByUserId(member.getUserId());

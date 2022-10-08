@@ -1,4 +1,4 @@
-package project.mall.domain.enumtype.dto;
+package project.mall.domain.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

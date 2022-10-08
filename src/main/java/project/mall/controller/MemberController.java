@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import project.mall.SessionConst;
 import project.mall.domain.Member;
-import project.mall.domain.enumtype.dto.JoinForm;
-import project.mall.domain.enumtype.dto.LoginForm;
+import project.mall.domain.dto.JoinForm;
+import project.mall.domain.dto.LoginForm;
 import project.mall.service.MemberService;
 import project.mall.session.SessionManager;
 
@@ -45,61 +45,15 @@ public class MemberController {
         return "members/loginPage";
     }
 
-//    @PostMapping("members/login")
-    public String login(@Valid @ModelAttribute LoginForm form, BindingResult result, HttpServletResponse response) {
-        log.info("MemberController.login");
-
-        if(result.hasErrors()) return "members/loginPage";
-
-        Member loginMember = memberService.login(form.getUserId(), form.getPwd());
-
-        if(loginMember == null) {
-            result.reject("loginFail", "일치하는 계정이 없습니다. 로그인 정보를 확인해주세요.");
-            return "members/loginPage";
-        }
-
-        //로그인 성공 처리
-
-        //쿠키에 시간 정보를 주지 않으면 세션 쿠키(브라우져 종료시 모두 종료)
-        Cookie idCookie = new Cookie("memberId", String.valueOf(loginMember.getId()));
-        response.addCookie(idCookie);
-
-        log.info("login 성공");
-
-        
-        return "redirect:/";
-    }
-
-//    @PostMapping("members/login")
-    public String loginV2(@Valid @ModelAttribute LoginForm form, BindingResult result, HttpServletResponse response) {
-        log.info("MemberController.login");
-
-        if(result.hasErrors()) return "members/loginPage";
-
-        Member loginMember = memberService.login(form.getUserId(), form.getPwd());
-
-        if(loginMember == null) {
-            result.reject("loginFail", "일치하는 계정이 없습니다. 로그인 정보를 확인해주세요.");
-            return "members/loginPage";
-        }
-
-        //세션 관리자로 세션 생성 및 회원 데이터 보관
-        sessionManager.createSession(loginMember, response);
-
-        log.info("login 성공");
-
-        return "redirect:/";
-    }
-
     @PostMapping("members/login")
-    public String loginV3(@Valid @ModelAttribute LoginForm form, BindingResult result, HttpServletRequest request) {
+    public String login(@Valid @ModelAttribute LoginForm form, BindingResult result, HttpServletRequest request) {
         log.info("MemberController.login");
 
         if(result.hasErrors()) return "members/loginPage";
 
-        Member loginMember = memberService.login(form.getUserId(), form.getPwd());
+        Long loginMemberId = memberService.login(form.getUserId(), form.getPwd()).getId();
 
-        if(loginMember == null) {
+        if(loginMemberId == null) {
             result.reject("loginFail", "일치하는 계정이 없습니다. 로그인 정보를 확인해주세요.");
             return "members/loginPage";
         }
@@ -109,14 +63,14 @@ public class MemberController {
 
         //세션 있으면 있는 세션 반환, 없으면 신규 세션 생성
         HttpSession session = request.getSession(true); //default가 true
-        //세션에 로그인 회원 정보 보관
-        session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
+        //세션에 로그인 회원 ID 보관
+        session.setAttribute(SessionConst.LOGIN_MEMBER, loginMemberId);
         
         return "redirect:/";
     }
 
     @GetMapping("members/logout")
-    public String logoutV3(HttpServletRequest request) {
+    public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
 
         if(session != null) {
