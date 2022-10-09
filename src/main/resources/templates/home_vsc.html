@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- awesome font -->
+  <script src="https://kit.fontawesome.com/02014ca9bd.js" crossorigin="anonymous"></script>
+  
+  <!-- font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+
+  <title>Mall</title>
+
+  <style>
+    body {
+      margin: 0;
+      min-width: 1040px;
+
+      font-family: 'Gothic A1', sans-serif;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    ul {
+      list-style: none;
+      display: flex;
+    }
+
+    a {
+      text-decoration: none;
+      color: black;
+    }
+
+    i{
+      font-size: 15px;
+      padding-right: 5px;
+    }
+
+    /* start: header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+
+      background-color: white;
+
+      border-bottom: 1px solid #B7C4CF;
+      
+      font-family: 'Roboto', sans-serif;
+    }
+
+    header nav{
+      display: flex;
+      align-items: center;
+
+      width: 100%;
+      height: 100px;
+    }
+
+    .navbar {
+      justify-content: center;
+      height: 100px;
+    }
+
+    .navbar_logo{
+      display: flex;
+      justify-content: flex-end;
+      flex-grow: 1;
+    }
+    .navbar_logo img {
+      width: 161px;
+      height: 100px;
+    }
+
+    .navbar_menu {
+      display: block;
+      flex-grow: 15;
+    }
+
+    .navbar ul {
+      padding-left: 15px;
+      margin: 0;
+      margin-top: 13px;
+    }
+
+    .navbar_menu ul li {
+      margin-right: 15px;
+      display: flex;
+      align-items: center;
+      
+    }
+
+    .navbar_menu_1 {
+      font-size: 28px;
+      font-weight: 900;
+    }
+
+    .navbar_menu_2 {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .navbar_link {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-grow: 1;
+    }
+
+    .navbar_link ul {
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar_link ul li{
+      margin-right: 20px;
+      font-size: 11px;
+      font-weight: 400;
+    }
+    /* end: header */
+
+    /* start: content */
+    .content {
+      width: 100%;
+      display: block;
+    }
+
+    /* start: content_events */
+    .content_events {
+      width: 100%;
+      aspect-ratio: 10 / 3.8;
+
+      display: flex;
+
+      padding-top: 50px;
+
+      flex-shrink: 2;
+    }
+
+    .content_events .event_main{
+      width: 38%;
+      height: 100%;
+
+      margin-right: 35px;
+
+    }
+
+    .content_events .event_sub_1, .event_sub_2{
+      width: 30%;
+      height: 100%;
+
+      margin-right: 1px;
+    }
+    /* end: content_events */
+
+    /* start: content_new */
+    .content_new {
+      width: 100%;
+      aspect-ratio: 10 / 1.5;
+
+      flex-shrink: 1;
+
+      display: block;
+
+      margin-top: 50px;
+      padding-top: 50px;
+    }
+
+    .content_new > div {
+      margin: 0 50px;
+    }
+
+    .new_header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .new_body {
+      display: flex;
+
+      justify-content: space-between;
+
+      margin: 0 50px;
+    }
+
+    .new_event2 {
+      display: flex;
+
+      width: 40%;
+    }
+
+    .new_event2 .new_event {
+      width: 50%;
+      aspect-ratio: 16 / 10;
+
+      margin-right: 20px;      
+    }
+
+    .new_event2 .new_event_detail {
+      width: 50%;
+      aspect-ratio: 16 / 10;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      
+    }
+
+    .new_event_detail .new_event_title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .new_event_detail .new_event_content {
+      font-size: 16px;
+      line-height: 25px;
+    }
+
+
+    .new_products {
+      width: 55%;
+      
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .new_product {
+      width: 25%;
+
+      display: flex;
+      align-items: center;
+
+      border-top: 1px solid #B7C4CF;
+    }
+
+    .new_product .new_product_pic {
+      width: 50%;
+      aspect-ratio: 1 / 1;
+      min-width: 85px;
+
+      margin-right: 20px;
+    }
+
+    .new_product .new_product_info {
+      line-height: 3px;
+    }
+
+    .new_product_info .new_product_name {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .new_product_info .new_product_detail {
+      font-size: 13px;
+      font-weight: 400;
+    }
+
+    .new_product_info .new_product_price {
+      color : red;
+      font-size: 13px;
+      font-weight: 400;
+    }
+    /* end: content_new */
+
+    /* start: content_products */
+    .content_products {
+      width: 100%;
+
+      display: block;
+
+      padding-top: 50px;
+    }
+
+    .content_products > div {
+      margin: 50px 50px;
+
+      display: flex;
+      justify-content: space-around;
+    }
+    
+    .products {
+      width: 25%;
+      height: 350px;
+    
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      
+      padding: 30px 0;
+
+      border-top: #B7C4CF solid 1px;
+    }
+
+    .products > div {
+      width: 80%;
+    }
+
+    .products .products_pic{
+      aspect-ratio: 1.6 /1;
+    }
+
+    .products .products_info {
+      line-height: 18px;
+      
+      margin-top: 10px;
+    }
+
+    .products .products_info .products_name{
+      font-size: 24px;
+      font-weight: 700;
+    }
+    
+
+    .products .products_info .products_detail{
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 25px;
+    }
+    /* end: content_products */
+    /* end: content */
+
+    footer {
+      height: 500px;
+    }
+
+  </style>
+
+</head>
+
+<body>
+  <div class="container">
+    
+    <header>
+      
+      <nav class="navbar_header">
+        
+        <div class="navbar navbar_logo">
+          <a href="/"><img src="../static/assets/logo.png"></a>
+        </div>
+        
+        <div class="navbar navbar_menu">
+          <ul class="navbar_menu_1">
+            <li><a href="">Special-Order</a></li>
+            <li><a href="">Showcase</a></li>
+            <li><a href="">PT</a></li>
+            <li><a href="">Welove</a></li>
+          </ul>
+          
+          <ul class="navbar_menu_2">
+            <li><a href="">NEW</a></li>
+            <li><a href="">BSET</a></li>
+            <li><a href="">WOMEN</a></li>
+            <li><a href="">MEN</a></li>
+            <li><a href="">INTERIOR</a></li>
+          </ul>
+        </div>
+        
+        <div class="navbar navbar_link">
+          <ul>
+            <li><a href=""><i class="fa-solid fa-user"></i>MY PAGE</a></li>
+            <li><a href=""><i class="fa-solid fa-cart-shopping"></i>CART</a></li>
+            <li><a href=""><i class="fa-solid fa-right-from-bracket"></i>LOGIN</a></li>
+          </ul>
+        </div>
+      
+      </nav>
+    
+    </header>
+
+    <div class="content">
+      
+      <div class="content_events">
+        <div class="event_main">
+          <img src="../static/assets/events/event1.jpg" />
+        </div>
+        <div class="event_sub_1">
+          <img src="../static/assets/events/event2.jpg">
+        </div>
+        <div class="event_sub_2">
+          <img src="../static/assets/events/event3.jpg">
+        </div>
+      </div>
+      <!-- content_events -->
+
+      <div class="content_new">
+
+        <div class="new_header">
+          <p>NEW</p>
+          <a href=""><i class="fa-solid fa-plus"></i></a>
+        </div>
+        <!-- new_header -->
+        
+        <div class="new_body">
+          
+          <div class="new_event2">
+            <div class="new_event">
+              <img src="../static/assets/new_products/new_event.jpg" />
+            </div>
+
+            <div class="new_event_detail">
+              <p class="new_event_title">본질을 살려낸 인테리어</p>
+              <p class="new_event_content">레어로우의 베스트 아이템을 단독 할인 혜택에 만나보세요. ~40%</p>
+            </div>
+          </div>
+          
+          <div class="new_products">
+            <div class="new_product">
+              <div class="new_product_pic">
+                <img src="../static/assets/new_products/new_product1.jpg">
+              </div>
+              <div class="new_product_info">
+                <p class="new_product_name">상품명<p>
+                <p class="new_product_detail">상품설명</p>
+                <br>
+                <p class="new_product_price">12,000won</p>
+              </div>
+            </div>
+
+            <div class="new_product">
+              <div class="new_product_pic">
+                <img src="../static/assets/new_products/new_product2.jpg">
+              </div>
+              <div class="new_product_info">
+                <p class="new_product_name">상품명<p>
+                <p class="new_product_detail">상품설명</p>
+                <br>
+                <p class="new_product_price">12,000won</p>
+              </div>
+            </div>
+
+            <div class="new_product">
+              <div class="new_product_pic">
+                <img src="../static/assets/new_products/new_product3.jpg">
+              </div>
+              <div class="new_product_info">
+                <p class="new_product_name">상품명<p>
+                <p class="new_product_detail">상품설명</p>
+                <br>
+                <p class="new_product_price">12,000won</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- new_body -->
+
+      </div>
+      <!-- content_new -->
+
+      <div class="content_products">
+        
+        <div class="content_products_layer_1">
+
+          <div class="products">
+            <div class="products_pic">
+              <img src="../static/assets/products/product1.jpg">
+            </div>
+            <div class="products_info">
+              <h1 class="products_name">임팩트홀리선</h1>
+              <p class="products_detail">아주 사적인 밤 서던하일랜드와 함께하는 재즈 공연입니다.특별한 재즈 공연에 초대 합니다.</p>
+            </div>
+          </div>
+          <div class="products">
+            <div class="products_pic">
+              <img src="../static/assets/products/product2.jpg">
+            </div>
+            <div class="products_info">
+              <h1 class="products_name">임팩트홀리선</h1>
+              <p class="products_detail">아주 사적인 밤 서던하일랜드와 함께하는 재즈 공연입니다.특별한 재즈 공연에 초대 합니다.</p>
+            </div>
+          </div>
+          <div class="products">
+            <div class="products_pic">
+              <img src="../static/assets/products/product3.jpg">
+            </div>
+            <div class="products_info">
+              <h1 class="products_name">임팩트홀리선</h1>
+              <p class="products_detail">아주 사적인 밤 서던하일랜드와 함께하는 재즈 공연입니다.특별한 재즈 공연에 초대 합니다.</p>
+            </div>
+          </div>
+        </div>
+        <!-- content_products_layer_1 -->
+        
+        <div class="content_products_layer_2">
+          <div class="products">
+            <div class="products_pic">
+              <img src="../static/assets/products/product4.jpg">
+            </div>
+            <div class="products_info">
+              <h1 class="products_name">임팩트홀리선</h1>
+              <p class="products_detail">아주 사적인 밤 서던하일랜드와 함께하는 재즈 공연입니다.특별한 재즈 공연에 초대 합니다.</p>
+            </div>
+          </div>
+          <div class="products">
+            <div class="products_pic">
+              <img src="../static/assets/products/product5.jpg">
+            </div>
+            <div class="products_info">
+              <h1 class="products_name">임팩트홀리선</h1>
+              <p class="products_detail">아주 사적인 밤 서던하일랜드와 함께하는 재즈 공연입니다.특별한 재즈 공연에 초대 합니다.</p>
+            </div>
+          </div>
+          <div class="products">
+            <div class="products_pic">
+              <img src="../static/assets/products/product6.jpg">
+            </div>
+            <div class="products_info">
+              <h1 class="products_name">임팩트홀리선</h1>
+              <p class="products_detail">아주 사적인 밤 서던하일랜드와 함께하는 재즈 공연입니다.특별한 재즈 공연에 초대 합니다.</p>
+            </div>
+          </div>
+        </div>
+        <!-- content_products_layer_2 -->
+
+      </div>
+      <!-- content_products -->
+    </div>
+    <!-- content -->
+    
+    <footer>
+
+    </footer>
+
+  </div>
+  <!-- container -->
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<header th:fragment="header">
+
+    <nav class="navbar_header">
+
+        <div class="navbar navbar_logo">
+            <a href="/"><img th:src="@{/assets/logo.png}"></a>
+        </div>
+
+        <div class="navbar navbar_menu">
+            <ul class="navbar_menu_1">
+                <li><a href="">Special-Order</a></li>
+                <li><a href="">Showcase</a></li>
+                <li><a href="">PT</a></li>
+            </ul>
+
+            <ul class="navbar_menu_2">
+                <li><a href="">NEW</a></li>
+                <li><a href="">BEST</a></li>
+                <li><a href="">WOMEN</a></li>
+                <li><a href="">MEN</a></li>
+                <li><a href="">INTERIOR</a></li>
+            </ul>
+        </div>
+
+        <div class="navbar navbar_link">
+            <ul>
+                <li><a href=""><i class="fa-solid fa-user"></i>MY PAGE</a></li>
+                <li><a href=""><i class="fa-solid fa-cart-shopping"></i>CART</a></li>
+                <li th:if="${session.loginMember == null}"><a href="/members/login"><i class="fa-solid fa-right-from-bracket"></i>LOGIN</a></li>
+                <li th:if="${session.loginMember != null}"><a href="/members/logout"><i class="fa-solid fa-right-from-bracket" ></i>LOGOUT</a></li>
+            </ul>
+        </div>
+
+    </nav>
+
+</header>
+
+</html>
+
