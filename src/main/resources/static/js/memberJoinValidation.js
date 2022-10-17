@@ -6,9 +6,23 @@ window.onload = function() {
   var email_check_flag = false; // 이메일 점검 플래그 변수 
   var phone_check_flag = false; // 연락처 점검 플래그 변수
 
+  var userId = document.querySelector('#userId');
+  var pwd = document.querySelector('#pwd');
+  var pwd_ch = document.querySelector('#pwd_ch');
+  var email = document.querySelector('#email');
+  var phone = document.querySelector('#phone');
+
   var timeout;
   var delay_ajax = 1000;
   var delay =500;
+
+  if(userId.value != '') idCheck();
+  if(pwd.value != '') pwdCheck();
+  if(pwd_ch.value != '') pwd_chCheck();
+  if(email.value != '') emailCheck();
+  if(phone.value != '') phoneCheck();
+
+  flagCheck();
 
   $('#userId').on('keyup' ,function(e){
 
@@ -16,25 +30,53 @@ window.onload = function() {
 
     timeout = setTimeout(function() {
       idCheck();
+    }, delay_ajax);
+  });
+
+
+  $('#pwd').on('keyup' ,function(e){
+
+    if(timeout) clearTimeout(timeout);
+
+    timeout = setTimeout(function() {
+      pwdCheck();
     }, delay);
   });
 
-  $('#userId').on('keydown', function(e) {
-    $('#join_userId_errorMessage').text('');
+  $('#pwd_ch').on('keyup' ,function(e){
+
+    if(timeout) clearTimeout(timeout);
+
+    timeout = setTimeout(function() {
+      pwd_chCheck();
+    }, delay);
   });
 
+  $('#email').on('keyup' ,function(e){
 
-  // $('#userId').on('keyup', timer(idCheck), delay);
-  // $('#pwd').on('keyup', timer(pwdCheck));
-  // $('#pwd_ch').on('keyupt', timer(pwd_chCheck));
-  // $('#email').on('keyup', timer(emailCheck));
-  // $('#phone').on('keyup', timer(autoHyphen));
-  // $('#phone').on('keyup', timer(phoneCheck));
+    if(timeout) clearTimeout(timeout);
 
-  // $('#userId, #pwd, #pwd_ch, #email, #phone').on(
-  //   'keyup'
-  //   ,timer(flagCheck)
-  //   );
+    timeout = setTimeout(function() {
+      emailCheck();
+    }, delay_ajax);
+  });
+
+  $('#phone').on('keyup' ,function(e){
+
+    if(timeout) clearTimeout(timeout);
+
+    timeout = setTimeout(function() {
+      phoneCheck();
+    }, delay_ajax);
+  });
+
+//  $('#phone').on('keyup', function(e){
+//       onlyNumber();
+//     });
+
+//  $('#phone, #userId, #pwd, #pwd_ch, #email').on('focusout', function(e) {
+//    flagCheck();
+//  });
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -67,6 +109,7 @@ window.onload = function() {
             errorMessage.removeAttribute('class', 'errorMessage');
             errorMessage.setAttribute('class', 'successMessage');
             userId_check_flag = true;
+            flagCheck();
 
           } else {
 
@@ -103,19 +146,15 @@ function pwdCheck() {
   var pwd = document.querySelector('#pwd');
   var errorMessage = document.querySelector('#join_pwd_errorMessage');
 
-  if(pwd.value == '') {
-    errorMessage.innerText = '';
-    pwd_check_flag = false;
-  }
-
   // 폼 점검(form validation)
-  var valid = new RegExp(/\\s{1,20}|(?=.*[a-zA-Z])((?=.*\\d)(?=.*\\W)).{8,16}/).test(pwd.value);
+  var valid = new RegExp(/(?=.*\d{1,14})(?=.*[~`!@#$%\^&*()-+=]{1,14})(?=.*[a-zA-Z]{1,14}).{8,16}$/).test(pwd.value);
 
   if(valid) {
     errorMessage.innerText = '사용 가능한 비밀번호입니다';
     errorMessage.removeAttribute('class', 'errorMessage');
     errorMessage.setAttribute('class', 'successMessage');
     pwd_check_flag = true;
+    flagCheck();
 
   }else {
     errorMessage.innerText = '8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.'
@@ -140,6 +179,7 @@ function pwd_chCheck() {
     errorMessage.removeAttribute('class', 'errorMessage');
     errorMessage.setAttribute('class', 'successMessage');
     pwd_ch_check_flag = true;
+    flagCheck();
 
   }else {
     errorMessage.innerText = '비밀번호가 일치하지 않습니다.'
@@ -179,6 +219,7 @@ function pwd_chCheck() {
             errorMessage.removeAttribute('class', 'errorMessage');
             errorMessage.setAttribute('class', 'successMessage');
             email_check_flag = true;
+            flagCheck();
 
           } else {
 
@@ -206,16 +247,6 @@ function pwd_chCheck() {
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-  //하이픈 자동 생성, 폼 점검도 함께
-  function autoHyphen(){
-    
-    console.log('autoHyphen');
-
-    document.querySelector('#phone').value
-    .replace(/[^0-9]/g, '') // 숫자를 제외한 모든 문자 제거
-    .replace(/^(\d{0,3})(\d{3,4})(\d{0,4})$/g, "$1-$2-$3").replace(/(\-{1,2})$/g, "");
-  }
-
   //전화번호 점검
   function phoneCheck() {
     
@@ -239,6 +270,7 @@ function pwd_chCheck() {
           errorMessage.removeAttribute('class', 'errorMessage');
           errorMessage.setAttribute('class', 'successMessage');
           phone_check_flag = true;
+          flagCheck();
 
         } else {
           
@@ -262,17 +294,18 @@ function pwd_chCheck() {
   //모든 폼 제대로 입력됐나 확인
   function flagCheck() {
 
+    console.log('flagCheck');
+
     if(userId_check_flag == true &&
       pwd_check_flag == true &&
       pwd_ch_check_flag == true &&
       email_check_flag == true &&
       phone_check_flag == true) {
-      
-        $('.submitButton').css({
-          'pointer-events':'',
-          'background-color':''
-        });
 
+        $('#join_button').css({
+          'pointer-events':'auto',
+          'background-color':'black'
+        });
       }
   }
 

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: head" />
+
+<body>
+
+<header th:replace="fragments/header :: header" />
+
+<!-- daum 우편번호 서비스 -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
+<script type="text/javascript" th:src="@{/js/getAddress.js}"></script>
+
+<link rel="stylesheet" th:href="@{/css/myPage.css}" />
+<link rel="stylesheet" th:href="@{/css/orderCartList.css}" />
+
+<div class="container_mypage">
+
+    <section class="user_box">
+        <div class="user_box_title" >
+            <h2 th:text="${member.userId}">사용자아이디</h2>
+            <a>
+                <p class="user_info_link">회원정보</p>
+            </a>
+            <a>
+                <p class="user_info_link">회원탈퇴</p>
+            </a>
+        </div>
+        <div class="modify_wrap">
+            <div class="modify_l">
+                연락처
+            </div>
+            <div class="modify_r">
+                <form>
+                    <div>
+                        <input class="modify_input" type="text" th:value="${member.phone}"></input>
+                    </div>
+                    <div>
+                        <button class="modify_button" type="submit">
+                            변경
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modify_wrap">
+            <div class="modify_l">
+                이메일
+            </div>
+            <div class="modify_r">
+                <form>
+                    <div>
+                        <input class="modify_input" type="email" th:value="${member.email}"></input>
+                    </div>
+                    <div>
+                        <button class="modify_button" type="submit">
+                            변경
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modify_wrap">
+            <div class="address">
+                주소
+            </div>
+            <div class="address">
+                <input id="zipcode" class="modify_input" type="text" value=""></input>
+                <button class="modify_button" onClick="getPostcodeAddress()"> 검색</button>
+            </div>
+            <div class="address">
+                <input id="address1" class="modify_input" type="text" value=""></input>
+            </div>
+            <div class="address">
+                <input id="address2" class="modify_input" type="text" value=""></input>
+            </div>
+        </div>
+        <div>
+
+        </div>
+    </section>
+
+    <section class="order_box">
+        <div class="order_box_title">
+            <h3 class="title_text">주문 내역</h3>
+            <a><p class="more_button">더보기></p></a>
+        </div>
+        <ul class="order_list">
+
+            <li class="list_title">
+                <div class="info">
+                    상품정보
+                </div>
+                <div class="count">
+                    수량
+                </div>
+                <div class="delivery">
+                    배송
+                </div>
+                <div class="status">
+                    진행상태
+                </div>
+            </li>
+
+            <li class="list_content">
+                <div class="order_info_title">
+                    <div class="date">
+                        주문일자
+                    </div>
+                    <div class="num">
+                        주문번호
+                    </div>
+                </div>
+                <div class="order_info_content">
+                    <div class="item">
+                        <div class="item_img_box">
+                            <img src="" />
+                        </div>
+                        <div class="item_info">
+                            <div><p>드러그 옴므</p></div>
+                            <div><p>울 개버딘 롱 트렌치 코트 블랙</p></div>
+                            <div><p>2000won</p></div>
+<!--                            <div><p th:text="${#numbers.formatInteger(item.price,0,'COMMA') + 'won'}">2000won</p></div>-->
+                        </div>
+                    </div>
+                    <div class="count">
+                        수량 1 개
+                    </div>
+                    <div class="delivery">
+                        무료배송
+                    </div>
+                    <div class="status">
+                        배송중
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </section>
+
+    <section class="cart_box">
+        <div class="cart_box_title">
+            <h3 class="title_text">장바구니</h3>
+            <a><p class="more_button">더보기></p></a>
+        </div>
+        <ul class="cart_list">
+
+            <li class="list_title">
+                <div class="check">
+                    <input type="checkbox"></input>
+                </div>
+                <div class="info">
+                    상품정보
+                </div>
+                <div class="count">
+                    수량
+                </div>
+                <div class="amount">
+                    주문금액
+                </div>
+                <div class="payment">
+                </div>
+            </li>
+
+            <li class="list_content">
+                <div class="cart_info_content">
+                    <div class="check">
+                        <input type="checkbox"></input>
+                    </div>
+
+                    <div class="item">
+                        <div class="item_img_box">
+                            <img src="" />
+                        </div>
+                        <div class="item_info">
+                            <div><p>드러그 옴므</p></div>
+                            <div><p>울 개버딘 롱 트렌치 코트 블랙</p></div>
+                            <div><p>2000won</p></div>
+                            <!--                            <div><p th:text="${#numbers.formatInteger(item.price,0,'COMMA') + 'won'}">2000won</p></div>-->
+                        </div>
+                    </div>
+
+                    <div class="count">
+                        <input type="number" id="tentacles" name="tentacles" min="10" max="100">
+                    </div>
+
+                    <div class="amount">
+                        15,135won
+                    </div>
+
+                    <div class="payment">
+                        <button>결제하기</button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </section>
+
+</div>
+
+<footer th:replace="fragments/footer :: footer" />
+
+</body>
+</html>

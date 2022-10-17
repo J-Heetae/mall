@@ -7,7 +7,6 @@ import project.mall.domain.Item;
 import project.mall.repository.ItemRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)

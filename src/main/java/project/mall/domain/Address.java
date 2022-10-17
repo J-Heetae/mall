@@ -21,7 +21,7 @@ public class Address extends BaseTimeEntity {
     @Column(name = "address_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 

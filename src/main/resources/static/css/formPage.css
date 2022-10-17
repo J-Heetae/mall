@@ -67,6 +67,11 @@
   color: white;
 }
 
+#join_submit{
+  pointer-events: none;
+  background-color: gray;
+}
+
 #join_button{
   width: 400px;
   height: 50px;

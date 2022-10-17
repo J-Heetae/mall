@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- daum 우편번호 서비스 -->
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
+  <!-- awesome font -->
+  <script src="https://kit.fontawesome.com/02014ca9bd.js" crossorigin="anonymous"></script>
+  
+  <script src="https://code.jquery.com/jquery-3.6.1.js"
+            integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+            crossorigin="anonymous"></script>
+
+  <script type="text/javascript" src="../static/js/itemCreate.js"></script>
+  <script type="text/javascript" src="../static/js/getAddress.js"></script>
+
+
+  <link rel="stylesheet" href="../static/css/orderCartList.css" />
+
+  
+  <!-- font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+
+  <title>Mall</title>
+
+
+<style>
+.container_mypage {
+    width: 1260px;
+    
+    margin: 0 auto;
+}
+
+.user_box{
+    height: 480px;
+
+    border-bottom: 1px solid #B7C4CF;
+}
+
+.user_box_title {
+    display: flex;
+    align-items: center;
+
+    border-bottom: 2px solid black;
+}
+
+.modify_wrap{
+    height: 50px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+.modify_l {
+    margin-bottom: 5px;
+}
+
+.modify_r form{
+    display: flex;
+}
+
+.modify_input{
+    width: 200px;
+    height: 30px;
+
+    margin-top: 5px;
+
+    padding: 0 15px;
+    font-size: 15px;
+    font-weight: 500;
+
+    border: 1px solid #B7C4CF;
+}
+
+#zipcode{
+    width: 195px;
+}
+
+#address1, #address2 {
+    width: 270px;
+}
+
+.address{
+    margin-bottom: 5px;
+}
+
+.modify_button{
+  width: 60px;
+  height: 32px;
+
+  margin: 5px 0 0 10px;
+
+  border: 0;
+  outline: 0;
+
+  font-size: 13px;
+
+  background-color: black;
+  color: white;
+}
+
+.modify_button:hover {
+  cursor: pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container_mypage" th:fragment="join">
+    
+    <section class="user_box">
+        <div class="user_box_title" >
+            <h2>사용자아이디</h2>
+            <a>
+                <p class="user_info_link">회원정보</p>
+            </a>
+            <a>
+                <p class="user_info_link">회원탈퇴</p>
+            </a>
+        </div>
+            <div class="modify_wrap">
+                <div class="modify_l">
+                    연락처
+                </div>
+                <div class="modify_r">
+                    <form>
+                        <div>
+                            <input class="modify_input" type="text" value=""></input>
+                        </div>
+                        <div>
+                            <button class="modify_button" type="submit">
+                                변경
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modify_wrap">
+                <div class="modify_l">
+                    이메일
+                </div>
+                <div class="modify_r">
+                    <form>
+                        <div>
+                            <input class="modify_input" type="email" value=""></input>
+                        </div>
+                        <div>
+                            <button class="modify_button" type="submit">
+                                변경
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modify_wrap">
+                <div class="address">
+                    주소
+                </div>
+                <div class="address">
+                    <input id="zipcode" class="modify_input" type="text" value=""></input>
+                    <button class="modify_button" onClick="getPostcodeAddress"> 검색</button>
+                </div>
+                <div class="address">
+                    <input id="address1" class="modify_input" type="text" value=""></input>
+                </div>
+                <div class="address">
+                    <input id="address2" class="modify_input" type="text" value=""></input>
+                </div>
+            </div>
+        <div>
+
+        </div>
+    </section>
+
+    <section class="order_box">
+        <div class="order_box_title">
+            <h3 class="title_text">주문 내역</h3>
+            <a><p class="more_button">더보기></p></a>
+        </div>
+        <ul class="order_list">
+
+            <li class="list_title">
+                <div class="info">
+                    상품정보
+                </div>
+                <div class="count">
+                    수량
+                </div>
+                <div class="delivery">
+                    배송
+                </div>
+                <div class="status">
+                    진행상태
+                </div>
+            </li>
+
+            <li class="list_content">
+                <div class="order_info_title">
+                    <div class="date">
+                        주문일자
+                    </div>
+                    <div class="num">
+                        주문번호
+                    </div>
+                </div>
+                <div class="order_info_content">
+                    <div class="item">
+                        <div class="item_img_box">
+                            <img src="" />
+                        </div>
+                        <div class="item_info">
+                            <div><p>드러그 옴므</p></div>
+                            <div><p>울 개버딘 롱 트렌치 코트 블랙</p></div>
+                            <div><p th:text="${#numbers.formatInteger(item.price,0,'COMMA') + 'won'}">2000won</p></div>
+                        </div>
+                    </div>
+                    <div class="count">
+                        수량 1 개
+                    </div>
+                    <div class="delivery">
+                        무료배송
+                    </div>
+                    <div class="status">
+                        배송중
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </section>
+
+    <section class="cart_box">
+        <div class="cart_box_title">
+            <h3 class="title_text">장바구니</h3>
+            <a><p class="more_button">더보기></p></a>
+        </div>
+        <ul class="cart_list">
+
+            <li class="list_title">
+                <div class="check">
+                    <input type="checkbox"></input>
+                </div>
+                <div class="info">
+                    상품정보
+                </div>
+                <div class="count">
+                    수량
+                </div>
+                <div class="amount">
+                    주문금액
+                </div>
+                <div class="payment">
+                </div>
+            </li>
+
+            <li class="list_content">
+                <div class="cart_info_content">
+                    <div class="check">
+                        <input type="checkbox"></input>
+                    </div>
+
+                    <div class="item">
+                        <div class="item_img_box">
+                            <img src="" />
+                        </div>
+                        <div class="item_info">
+                            <div><p>드러그 옴므</p></div>
+                            <div><p>울 개버딘 롱 트렌치 코트 블랙</p></div>
+                            <div><p th:text="${#numbers.formatInteger(item.price,0,'COMMA') + 'won'}">2000won</p></div>
+                        </div>
+                    </div>
+
+                    <div class="count">
+                        <input type="number" id="tentacles" name="tentacles" min="10" max="100">
+                    </div>
+
+                    <div class="amount">
+                        15,135won
+                    </div>
+
+                    <div class="payment">
+                        <button>결제하기</button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </section>
+
+    </div>
+    </body>
+    </html>

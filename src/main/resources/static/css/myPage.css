@@ -1,0 +1,78 @@
+@charset "utf-8";
+
+.container_mypage {
+  width: 1260px;
+  
+  margin: 0 auto;
+}
+
+.user_box{
+  height: 480px;
+
+  border-bottom: 1px solid #B7C4CF;
+}
+
+.user_box_title {
+  display: flex;
+  align-items: center;
+
+  border-bottom: 2px solid black;
+}
+
+.modify_wrap{
+  height: 50px;
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+
+.modify_l {
+  margin-bottom: 5px;
+}
+
+.modify_r form{
+  display: flex;
+}
+
+.modify_input{
+  width: 200px;
+  height: 30px;
+
+  margin-top: 5px;
+
+  padding: 0 15px;
+  font-size: 15px;
+  font-weight: 500;
+
+  border: 1px solid #B7C4CF;
+}
+
+#zipcode{
+  width: 195px;
+}
+
+#address1, #address2 {
+  width: 270px;
+}
+
+.address{
+  margin-bottom: 5px;
+}
+
+.modify_button{
+width: 60px;
+height: 32px;
+
+margin: 5px 0 0 10px;
+
+border: 0;
+outline: 0;
+
+font-size: 13px;
+
+background-color: black;
+color: white;
+}
+
+.modify_button:hover {
+cursor: pointer;
+}

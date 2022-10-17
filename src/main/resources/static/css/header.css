@@ -13,6 +13,27 @@ header {
   font-family: 'Roboto', sans-serif;
 }
 
+.navbar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.navbar ul{
+  list-style: none;
+  display: flex;
+}
+
+a{
+  text-decoration: none;
+  color: black;
+}
+
+i{
+  font-size: 15px;
+  padding-right: 5px;
+}
+
 header nav{
   display: flex;
   align-items: center;

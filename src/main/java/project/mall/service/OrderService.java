@@ -10,7 +10,6 @@ import project.mall.repository.MemberRepository;
 import project.mall.repository.OrderRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)

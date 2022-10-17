@@ -27,7 +27,6 @@ public class MemberService {
         memberRepository.save(member);
         log.info("MemberService.join 성공");
         return member.getId();
-
     }
 
     /**

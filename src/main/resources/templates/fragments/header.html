@@ -3,6 +3,8 @@
 
 <header th:fragment="header">
 
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
+
     <nav class="navbar_header">
 
         <div class="navbar navbar_logo">
@@ -27,8 +29,9 @@
 
         <div class="navbar navbar_link">
             <ul>
-                <li><a href=""><i class="fa-solid fa-user"></i>MY PAGE</a></li>
+                <li><a href="/members/myPage"><i class="fa-solid fa-user"></i>MY PAGE</a></li>
                 <li><a href=""><i class="fa-solid fa-cart-shopping"></i>CART</a></li>
+                <li th:if="${member != null} and ${#strings.equals(member.authority, 'ADMIN')}"><a href="/items/create">상품등록</a></li>
                 <li th:if="${session.loginMember == null}"><a href="/members/login"><i class="fa-solid fa-right-from-bracket"></i>LOGIN</a></li>
                 <li th:if="${session.loginMember != null}"><a href="/members/logout"><i class="fa-solid fa-right-from-bracket" ></i>LOGOUT</a></li>
             </ul>

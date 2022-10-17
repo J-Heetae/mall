@@ -4,10 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import project.mall.domain.Address;
-import project.mall.domain.Item;
-import project.mall.domain.Member;
-import project.mall.domain.Order;
+import project.mall.domain.*;
 import project.mall.domain.enumtype.Category;
 import project.mall.domain.enumtype.OrderStatus;
 import project.mall.exception.NotEnoughStockException;
@@ -36,7 +33,8 @@ class OrderServiceTest {
         Member member = Member.create("member", "123", "123@naver.com", "01012345678");
         em.persist(member);
 
-        Item item = Item.create("item", Category.CLOTH, 10000, 100);
+        UploadFile file = UploadFile.create("hi","hello");
+        Item item = Item.create("item", file ,Category.CLOTH, 10000, 100);
         em.persist(item);
 
         Address address = Address.create(member, "0000", "서울시 양천구 신월로",
@@ -63,7 +61,8 @@ class OrderServiceTest {
         Member member = Member.create("member", "123", "123@naver.com", "01012345678");
         em.persist(member);
 
-        Item item = Item.create("item", Category.CLOTH, 10000, 100);
+        UploadFile file = UploadFile.create("hi","hello");
+        Item item = Item.create("item", file, Category.CLOTH, 10000, 100);
         em.persist(item);
 
         Address address = Address.create(member, "0000", "서울시 양천구 신월로",
@@ -87,7 +86,8 @@ class OrderServiceTest {
         Member member = Member.create("member", "123", "123@naver.com", "01012345678");
         em.persist(member);
 
-        Item item = Item.create("item", Category.CLOTH, 10000, 100);
+        UploadFile file = UploadFile.create("hi","hello");
+        Item item = Item.create("item", file, Category.CLOTH, 10000, 100);
         em.persist(item);
 
         Address address = Address.create(member, "0000", "서울시 양천구 신월로",

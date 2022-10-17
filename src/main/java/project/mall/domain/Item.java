@@ -23,6 +23,9 @@ public class Item extends BaseTimeEntity {
 
     private String name;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private UploadFile imageFile;
+
     @Enumerated(EnumType.STRING)
     private Category category; // ENUM [CLOTH(옷), SHOES(신발)]
 
@@ -31,15 +34,21 @@ public class Item extends BaseTimeEntity {
     private int stockQuantity;
 
     //==생성 메서드==//
-    private Item(String name, Category category, int price, int stockQuantity) {
+    public Item(String name, int price) {
         this.name = name;
+        this.price = price;
+    }
+
+    private Item(String name, UploadFile imageFile, Category category, int price, int stockQuantity) {
+        this.name = name;
+        this.imageFile = imageFile;
         this.category = category;
         this.price = price;
         this.stockQuantity = stockQuantity;
     }
 
-    public static Item create(String name, Category category, int price, int stockQuantity) {
-        return new Item(name, category, price, stockQuantity);
+    public static Item create(String name, UploadFile imageFile, Category category, int price, int stockQuantity) {
+        return new Item(name, imageFile, category, price, stockQuantity);
     }
 
     //==비지니스 로직==//

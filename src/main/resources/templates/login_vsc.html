@@ -8,6 +8,13 @@
   <!-- awesome font -->
   <script src="https://kit.fontawesome.com/02014ca9bd.js" crossorigin="anonymous"></script>
   
+  <script src="https://code.jquery.com/jquery-3.6.1.js"
+            integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+            crossorigin="anonymous"></script>
+
+  <script type="text/javascript" src="../static/js/itemCreate.js"></script>
+
+  
   <!-- font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,45 +31,79 @@
 </head>
 
 <body>
-  <div class="container login_container" th:fragment="login">
 
-    <h1>로그인</h1>
-    <div class="login_box">
-      <form action="/members/login" method="post" th:object="${loginForm}">
-  
-        <div class="form_group">
-          <div class="input_box">
-            <input type="text" th:field="*{userId}" placeholder="아이디">
-          </div>
-          <p th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"
-             th:class="${#fields.hasErrors('userId')}? 'errorMessage': '' "></p>
-        </div>
-  
-        <div class="form_group">
-          <div class="input_box">
-            <input type="password" th:field="*{pwd}" placeholder="비밀번호">
-          </div>
-          <p th:if="${#fields.hasErrors('pwd')}" th:errors="*{pwd}"
-             th:class="${#fields.hasErrors('pwd')}? 'errorMessage': '' "></p>
-        </div>
-  
-        <div class="form_group" th:if="${#fields.hasGlobalErrors()}">
-          <p class="errorMessage" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
-        </div>
-  
-        <div class="input_box">
-          <button type="submit">로그인</button>
-        </div>
-  
-        <a href="/members/join">
-          <div id="join_button">
-            회원가입
-          </div>
-        </a>
-  
-      </form>
-    </div>
-    
+  <header th:replace="fragments/header :: header" />
+
+  <div class="container join_container" th:fragment="join">
+
+      <h1>상품등록</h1>
+
+      <div class="join_box">
+
+          <form action="/members/join" method="post" th:object="${createItemForm}">
+
+              <div class="form_group">
+                  <label th:for="category">카테고리</label>
+                  <select name="category" id="itemCategorySelect">
+                      <option th:each="category : ${T(project.mall.domain.enumtype.Category).values()}"
+                              th:value="${category}" th:text="${category}"></option>
+                  </select>
+              </div>
+
+              <div class="form_group">
+                  <label th:for="name">상품명</label>
+                  <div class="input_box">
+                      <input type="text" id="name" name="name" placeholder="상품명 입력">
+                  </div>
+                  <div class="errorMessage" id="createItem_name_errorMessage"></div>
+              </div>
+
+              <div class="form_group">
+                  <label th:for="price">가격</label>
+                  <div class="input_box">
+                      <input type="text" id="price" name="price" placeholder="가격 입력">
+                  </div>
+                  <div class="errorMessage" id="createItem_price_errorMessage"></div>
+              </div>
+
+              <div class="form_group">
+                  <label th:for="email">수량</label>
+                  <div class="input_box">
+                      <input type="text" id="stockQuantity" name="stockQuantity" placeholder="수량 입력">
+                  </div>
+                  <div class="errorMessage" id="createItem_stockQuantity_errorMessage"></div>
+              </div>
+
+              <div class="form_group">
+                상품 이미지
+                <div class="filebox">
+                    <label for="ex_filename">업로드</label> 
+                    <input type="file" id="ex_filename" class="upload-hidden"> 
+                    <input class="upload-name" value="파일선택" disabled="disabled">
+                </div>
+             </div>
+
+             <div class="form_group">
+                상세 페이지
+                <div class="filebox">
+                    <label for="ex_filename">업로드</label> 
+                    <input type="file" id="ex_filename" class="upload-hidden"> 
+                    <input class="upload-name" value="파일선택" disabled="disabled">
+                </div>
+             </div>
+
+              <div class="input_box">
+                  <button type="submit" id="join_button">
+                      등록하기
+                  </button>
+              </div>
+
+          </form>
+      </div>
+
   </div>
+
+  <footer th:replace="fragments/footer :: footer" />
+
 </body>
 </html>

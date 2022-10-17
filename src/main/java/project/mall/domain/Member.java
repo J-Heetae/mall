@@ -22,7 +22,7 @@ public class Member extends BaseTimeEntity {
     @Column(name = "member_id")
     private Long id;
 
-    @Enumerated
+//    @Enumerated(EnumType.STRING)
     private Authority authority;
 
     private String userId; //회원이 설정한 아이디
@@ -35,8 +35,8 @@ public class Member extends BaseTimeEntity {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Order> orders = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<Address> addresses = new ArrayList<>();
+    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
+    private Address address;
 
     //==생성 메서드==//
     private Member(Authority authority, String userId, String pwd, String email, String phone) {

@@ -5,6 +5,9 @@ server:
       timeout: 1800
       tracking-modes: cookie
 
+file:
+  dir: C:/jth/works/mall/src/main/resources/static/assets/
+
 spring:
   datasource:
     url: jdbc:oracle:thin:@localhost:1521:xe
@@ -14,7 +17,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: true
@@ -24,6 +27,12 @@ spring:
       pageable:
         default-page-size: 10
         max-page-size: 2000
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 250MB
+      max-request-size: 500MB
 
 logging.level:
   org.hibernate.SQL: debug

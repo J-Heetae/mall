@@ -3,11 +3,137 @@
 
 <head th:replace="fragments/head :: head" />
 
+<link rel="stylesheet" th:href="@{/css/main.css}" />
+
 <body>
 
     <header th:replace="fragments/header :: header" />
 
-    <div th:replace="fragments/main :: main" />
+    <div class="content">
+
+        <div class="content_events">
+            <div class="event_main">
+                <img src="assets/events/event1.jpg" />
+            </div>
+            <div class="event_sub_1">
+                <img src="assets/events/event2.jpg">
+            </div>
+            <div class="event_sub_2">
+                <img src="assets/events/event3.jpg">
+            </div>
+        </div>
+        <!-- content_events -->
+
+        <div class="content_new">
+
+            <div class="new_header">
+                <p>NEW</p>
+                <a href=""><i class="fa-solid fa-plus"></i></a>
+            </div>
+            <!-- new_header -->
+
+            <div class="new_body">
+
+                <div class="new_event2">
+                    <div class="new_event">
+                        <img src="assets/new_products/new_event.jpg" />
+                    </div>
+
+                    <div class="new_event_detail">
+                        <p class="new_event_title">본질을 살려낸 인테리어</p>
+                        <p class="new_event_content">레어로우의 베스트 아이템을 단독 할인 혜택에 만나보세요. ~40%</p>
+                    </div>
+                </div>
+
+                <div class="new_products">
+                    <div class="new_product" th:each="item : ${items}">
+                        <div class="new_product_pic">
+                            <img th:src="${'assets/products/' + item.imageFile.storeFileName}">
+                        </div>
+                        <div class="new_product_info">
+                            <p class="new_product_name" th:text="${item.name}">상품명<p>
+                            <p class="new_product_detail">상품설명</p>
+                            <br>
+                            <p class="new_product_price" th:text="${#numbers.formatInteger(item.price,0,'COMMA') + 'won'}">상품가격</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- new_body -->
+
+        </div>
+        <!-- content_new -->
+
+        <div class="content_products">
+
+            <div class="content_products_layer_1">
+
+                <div class="products">
+                    <div class="products_pic">
+                        <img src="assets/products/product1.jpg">
+                    </div>
+                    <div class="products_info">
+                        <h1 class="products_name">임팩트홀리선</h1>
+                        <p class="products_detail">아주 사적인 밤 서던하일랜드와 함께하는 재즈 공연입니다.특별한 재즈 공연에 초대 합니다.</p>
+                    </div>
+                </div>
+                <div class="products">
+                    <div class="products_pic">
+                        <img src="assets/products/product2.jpg">
+                    </div>
+                    <div class="products_info">
+                        <h1 class="products_name">임팩트홀리선</h1>
+                        <p class="products_detail">아주 사적인 밤 서던하일랜드와 함께하는 재즈 공연입니다.특별한 재즈 공연에 초대 합니다.</p>
+                    </div>
+                </div>
+                <div class="products">
+                    <div class="products_pic">
+                        <img src="assets/products/product3.jpg">
+                    </div>
+                    <div class="products_info">
+                        <h1 class="products_name">임팩트홀리선</h1>
+                        <p class="products_detail">아주 사적인 밤 서던하일랜드와 함께하는 재즈 공연입니다.특별한 재즈 공연에 초대 합니다.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- content_products_layer_1 -->
+
+            <div class="content_products_layer_2">
+                <div class="products">
+                    <div class="products_pic">
+                        <img src="assets/products/product4.jpg">
+                    </div>
+                    <div class="products_info">
+                        <h1 class="products_name">임팩트홀리선</h1>
+                        <p class="products_detail">아주 사적인 밤 서던하일랜드와 함께하는 재즈 공연입니다.특별한 재즈 공연에 초대 합니다.</p>
+                    </div>
+                </div>
+                <div class="products">
+                    <div class="products_pic">
+                        <img src="assets/products/product5.jpg">
+                    </div>
+                    <div class="products_info">
+                        <h1 class="products_name">임팩트홀리선</h1>
+                        <p class="products_detail">아주 사적인 밤 서던하일랜드와 함께하는 재즈 공연입니다.특별한 재즈 공연에 초대 합니다.</p>
+                    </div>
+                </div>
+                <div class="products">
+                    <div class="products_pic">
+                        <img src="assets/products/product6.jpg">
+                    </div>
+                    <div class="products_info">
+                        <h1 class="products_name">임팩트홀리선</h1>
+                        <p class="products_detail">아주 사적인 밤 서던하일랜드와 함께하는 재즈 공연입니다.특별한 재즈 공연에 초대 합니다.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- content_products_layer_2 -->
+
+        </div>
+        <!-- content_products -->
+    </div>
+    <!-- content -->
 
     <footer th:replace="fragments/footer :: footer" />
 

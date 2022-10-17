@@ -22,7 +22,7 @@ class ItemServiceTest {
     @Test
     public void 상품등록() throws Exception {
         //Given
-        Item item = Item.create("item", Category.CLOTH, 10000, 100);
+        Item item = new Item("item",10000);
 
         //When
         Long saveItem = itemService.save(item);
@@ -34,8 +34,8 @@ class ItemServiceTest {
     @Test
     public void 전체_상품_조회() throws Exception {
         //Given
-        Item item1 = Item.create("item1", Category.CLOTH, 10000, 100);
-        Item item2 = Item.create("item2", Category.CLOTH, 10000, 100);
+        Item item1 = new Item("item1",10000);
+        Item item2 = new Item("item2",10000);
 
         //When
         itemService.save(item1);
