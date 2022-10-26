@@ -8,7 +8,7 @@
 <header th:replace="fragments/header :: header" />
 
 <!-- daum 우편번호 서비스 -->
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script type="text/javascript" th:src="@{/js/getAddress.js}"></script>
 
@@ -66,14 +66,15 @@
                 주소
             </div>
             <div class="address">
-                <input id="zipcode" class="modify_input" type="text" value=""></input>
-                <button class="modify_button" onClick="getPostcodeAddress()"> 검색</button>
+                <input id="zipcode" name="zipcode" class="modify_input" type="text" value=""></input>
+                <button id="search_address_button" class="modify_button"> 검색</button>
+                <button class="modify_button"> 변경</button>
             </div>
             <div class="address">
-                <input id="address1" class="modify_input" type="text" value=""></input>
+                <input id="address1" name="address1" class="modify_input" type="text" value=""></input>
             </div>
             <div class="address">
-                <input id="address2" class="modify_input" type="text" value=""></input>
+                <input id="address2" name="address2" class="modify_input" type="text" value=""></input>
             </div>
         </div>
         <div>

@@ -52,7 +52,6 @@
                         </div>
                         <div class="new_product_info">
                             <p class="new_product_name" th:text="${item.name}">상품명<p>
-                            <p class="new_product_detail">상품설명</p>
                             <br>
                             <p class="new_product_price" th:text="${#numbers.formatInteger(item.price,0,'COMMA') + 'won'}">상품가격</p>
                         </div>

@@ -24,7 +24,6 @@ import java.util.Optional;
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
-
     private final MemberService memberService;
     private final MemberRepository memberRepository;
 
@@ -34,14 +33,21 @@ public class MemberController {
     }
 
     @PostMapping("members/join")
-    public String join(@Valid @ModelAttribute JoinForm form, BindingResult result) {
+    public String join(@Valid @ModelAttribute JoinForm form, BindingResult result, HttpServletRequest request) {
 
         if(result.hasErrors()) return "members/joinMember";
 
-        memberService.join(Member.create(form.getUserId(), form.getPwd(), form.getEmail(), form.getPhone()));
+        Long joinMemberId = memberService.join(Member.create(form.getUserId(), form.getPwd(), form.getEmail(), form.getPhone()));
 
-        //로그인 페이지로
-        return "members/loginMember";
+        //로그인 성공 처리
+        log.info("login 성공");
+
+        //세션 있으면 있는 세션 반환, 없으면 신규 세션 생성
+        HttpSession session = request.getSession(true); //default가 true
+        //세션에 로그인 회원 ID 보관
+        session.setAttribute(SessionConst.LOGIN_MEMBER, joinMemberId);
+
+        return "redirect:/";
     }
 
     @GetMapping("members/login")

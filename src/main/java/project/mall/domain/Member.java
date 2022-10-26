@@ -22,7 +22,7 @@ public class Member extends BaseTimeEntity {
     @Column(name = "member_id")
     private Long id;
 
-//    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private Authority authority;
 
     private String userId; //회원이 설정한 아이디
@@ -48,6 +48,7 @@ public class Member extends BaseTimeEntity {
     }
 
     public static Member create(String userId, String pwd, String email, String phone) {
-        return new Member(Authority.MEMBER, userId, pwd, email, phone);
+//        return new Member(Authority.MEMBER, userId, pwd, email, phone);
+        return new Member(Authority.ADMIN, userId, pwd, email, phone);
     }
 }

@@ -1,15 +1,17 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 
-    <head th:replace="fragments/head :: head" />
+<head th:replace="fragments/head :: head" />
+
+<script type="text/javascript" th:src="@{/js/itemImageUpload.js}"></script>
+
+<link rel="stylesheet" th:href="@{/css/formPage.css}" />
 
 <body>
 
     <header th:replace="fragments/header :: header" />
 
     <div class="container join_container">
-
-        <script type="text/javascript" th:src="@{/js/itemCreate.js}"></script>
 
         <h1>상품등록</h1>
 

@@ -12,9 +12,9 @@ window.onload = function() {
   var email = document.querySelector('#email');
   var phone = document.querySelector('#phone');
 
-  var timeout;
-  var delay_ajax = 1000;
-  var delay =500;
+//  var timeout;
+//  var delay_ajax = 1000;
+//  var delay =500;
 
   if(userId.value != '') idCheck();
   if(pwd.value != '') pwdCheck();
@@ -22,9 +22,7 @@ window.onload = function() {
   if(email.value != '') emailCheck();
   if(phone.value != '') phoneCheck();
 
-  flagCheck();
-
-  $('#userId').on('keyup' ,function(e){
+  /*$('#userId').on('keyup' ,function(e){
 
     if(timeout) clearTimeout(timeout);
 
@@ -68,15 +66,28 @@ window.onload = function() {
     timeout = setTimeout(function() {
       phoneCheck();
     }, delay_ajax);
-  });
+  });*/
 
-//  $('#phone').on('keyup', function(e){
-//       onlyNumber();
-//     });
+  $('#userId').on('keyup focusout' ,function(e){
+        idCheck();
+    });
 
-//  $('#phone, #userId, #pwd, #pwd_ch, #email').on('focusout', function(e) {
-//    flagCheck();
-//  });
+
+    $('#pwd').on('keyup focusout' ,function(e){
+        pwdCheck();
+    });
+
+    $('#pwd_ch').on('keyup focusout' ,function(e){
+        pwd_chCheck();
+    });
+
+    $('#email').on('keyup focusout' ,function(e){
+        emailCheck();
+    });
+
+    $('#phone').on('keyup focusout' ,function(e){
+        phoneCheck();
+    });
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -255,38 +266,42 @@ function pwd_chCheck() {
     var phone = document.querySelector('#phone');
     var errorMessage = document.querySelector('#join_phone_errorMessage');
 
-    // ajax
-    $.ajax({
-      url : "/members/phone-duplicate-check",
-      type : "POST",
-      dataType: "json",
-      data : {
-        phone : phone.value.replace(/[^0-9]/g, '')
-      },
-      success : function(data) {
-        if (data) {
+    var valid = new RegExp(/^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/).test(phone.value);
 
-          errorMessage.innerText = '사용 가능한 번호입니다.';
-          errorMessage.removeAttribute('class', 'errorMessage');
-          errorMessage.setAttribute('class', 'successMessage');
-          phone_check_flag = true;
-          flagCheck();
+    if(valid) {
+        // ajax
+        $.ajax({
+          url : "/members/phone-duplicate-check",
+          type : "POST",
+          dataType: "json",
+          data : {
+            phone : phone.value.replace(/[^0-9]/g, '')
+          },
+          success : function(data) {
+            if (data) {
 
-        } else {
-          
-          errorMessage.innerText = '이미 사용중인 번호입니다.'
-          errorMessage.removeAttribute('class', 'successMessage');
-          errorMessage.setAttribute('class', 'errorMessage');
-          phone_check_flag = false;
+              errorMessage.innerText = '사용 가능한 번호입니다.';
+              errorMessage.removeAttribute('class', 'errorMessage');
+              errorMessage.setAttribute('class', 'successMessage');
+              phone_check_flag = true;
+              flagCheck();
 
-        }
-      },
-      error : function(xhr, status, error) {
-        console.error("xhr : " + xhr);
-        console.error("status : " + status);
-        console.error("error : " + error);
-      }
-    }); // ajax
+            } else {
+
+              errorMessage.innerText = '이미 사용중인 번호입니다.'
+              errorMessage.removeAttribute('class', 'successMessage');
+              errorMessage.setAttribute('class', 'errorMessage');
+              phone_check_flag = false;
+
+            }
+          },
+          error : function(xhr, status, error) {
+            console.error("xhr : " + xhr);
+            console.error("status : " + status);
+            console.error("error : " + error);
+          }
+        }); // ajax
+    }
   };
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -302,7 +317,7 @@ function pwd_chCheck() {
       email_check_flag == true &&
       phone_check_flag == true) {
 
-        $('#join_button').css({
+        $('#join_submit').css({
           'pointer-events':'auto',
           'background-color':'black'
         });

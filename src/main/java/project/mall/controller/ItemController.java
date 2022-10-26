@@ -19,7 +19,6 @@ import java.io.IOException;
 @Controller
 @RequiredArgsConstructor
 public class ItemController {
-
     private final ItemService itemService;
     private final FileStore fileStore;
 

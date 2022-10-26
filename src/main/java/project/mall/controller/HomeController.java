@@ -17,10 +17,8 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class HomeController {
-
     final MemberRepository memberRepository;
     final ItemRepository itemRepository;
-
 
     @GetMapping("/")
     public String homeLoginV2(@Login Long loginMemberId, Model model) {
