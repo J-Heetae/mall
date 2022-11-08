@@ -54,17 +54,6 @@ public class MemberService {
         }
     }
 
-    private void validateDuplicateMember(Member member) {
-        Optional<Member> findMemberByUserId = memberRepository.findByUserId(member.getUserId());
-        if(findMemberByUserId.isPresent()) throw new IllegalStateException("이미 존재하는 회원명입니다.");
-
-        Optional<Member> findMemberByEmail = memberRepository.findByEmail(member.getEmail());
-        if(findMemberByEmail.isPresent()) throw new IllegalStateException("이미 존재하는 이메일입니다.");
-
-        Optional<Member> findMemberByPhone = memberRepository.findByPhone(member.getPhone());
-        if(findMemberByPhone.isPresent()) throw new IllegalStateException("이미 존재하는 전화번호입니다.");
-    }
-
     /**
      * 전체 회원 조회
      */
