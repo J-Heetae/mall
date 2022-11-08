@@ -12,61 +12,12 @@ window.onload = function() {
   var email = document.querySelector('#email');
   var phone = document.querySelector('#phone');
 
-//  var timeout;
-//  var delay_ajax = 1000;
-//  var delay =500;
-
   if(userId.value != '') idCheck();
   if(pwd.value != '') pwdCheck();
   if(pwd_ch.value != '') pwd_chCheck();
   if(email.value != '') emailCheck();
   if(phone.value != '') phoneCheck();
 
-  /*$('#userId').on('keyup' ,function(e){
-
-    if(timeout) clearTimeout(timeout);
-
-    timeout = setTimeout(function() {
-      idCheck();
-    }, delay_ajax);
-  });
-
-
-  $('#pwd').on('keyup' ,function(e){
-
-    if(timeout) clearTimeout(timeout);
-
-    timeout = setTimeout(function() {
-      pwdCheck();
-    }, delay);
-  });
-
-  $('#pwd_ch').on('keyup' ,function(e){
-
-    if(timeout) clearTimeout(timeout);
-
-    timeout = setTimeout(function() {
-      pwd_chCheck();
-    }, delay);
-  });
-
-  $('#email').on('keyup' ,function(e){
-
-    if(timeout) clearTimeout(timeout);
-
-    timeout = setTimeout(function() {
-      emailCheck();
-    }, delay_ajax);
-  });
-
-  $('#phone').on('keyup' ,function(e){
-
-    if(timeout) clearTimeout(timeout);
-
-    timeout = setTimeout(function() {
-      phoneCheck();
-    }, delay_ajax);
-  });*/
 
   $('#userId').on('keyup focusout' ,function(e){
         idCheck();
@@ -86,7 +37,7 @@ window.onload = function() {
     });
 
     $('#phone').on('keyup focusout' ,function(e){
-        phoneCheck();
+        prePhoneCheck();
     });
 
 
@@ -95,8 +46,6 @@ window.onload = function() {
   //아이디 점검
   function idCheck() {
 
-    console.log('idCheck');
-    
     var userId = document.querySelector('#userId');
     var errorMessage = document.querySelector('#join_userId_errorMessage');
 
@@ -152,8 +101,6 @@ window.onload = function() {
 //비밀번호 점검
 function pwdCheck() {
 
-  console.log('pwdCheck');
-
   var pwd = document.querySelector('#pwd');
   var errorMessage = document.querySelector('#join_pwd_errorMessage');
 
@@ -177,8 +124,6 @@ function pwdCheck() {
 
 //비밀번호 확인
 function pwd_chCheck() {
-
-  console.log('pwd_chCheck');
 
   var pwd = document.querySelector('#pwd');
   var pwd_ch = document.querySelector('#pwd_ch');
@@ -205,8 +150,6 @@ function pwd_chCheck() {
   //이메일 점검
   function emailCheck() {
 
-    console.log('email_Check');
-    
     var email = document.querySelector('#email');
     var errorMessage = document.querySelector('#join_email_errorMessage');
 
@@ -258,58 +201,63 @@ function pwd_chCheck() {
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-  //전화번호 점검
+  /** 숫자 제외한 모든 문자 제거, 전화번호 길이가 11으로 일치해야 phoneCheck() 호출*/
+  function prePhoneCheck() {
+    var phone = document.querySelector('#phone');
+
+    phone.value = phone.value.replace(/[^0-9]/g, '');
+
+    var valid = new RegExp(/^01([0|1|6|7|8|9])?([0-9]{3,4})?([0-9]{4})$/).test(phone.value);
+
+    if(phone.value.toString().length == 11 && valid) {
+        phoneCheck();
+    }
+  }
+
+  /** 전화번호 중복 점검 */
   function phoneCheck() {
     
-    console.log('phoneCheck');
-
     var phone = document.querySelector('#phone');
     var errorMessage = document.querySelector('#join_phone_errorMessage');
 
-    var valid = new RegExp(/^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/).test(phone.value);
+    // ajax
+    $.ajax({
+      url : "/members/phone-duplicate-check",
+      type : "POST",
+      dataType: "json",
+      data : {
+        phone : phone.value.replace(/[^0-9]/g, '')
+      },
+      success : function(data) {
+        if (data) {
 
-    if(valid) {
-        // ajax
-        $.ajax({
-          url : "/members/phone-duplicate-check",
-          type : "POST",
-          dataType: "json",
-          data : {
-            phone : phone.value.replace(/[^0-9]/g, '')
-          },
-          success : function(data) {
-            if (data) {
+          errorMessage.innerText = '사용 가능한 번호입니다.';
+          errorMessage.removeAttribute('class', 'errorMessage');
+          errorMessage.setAttribute('class', 'successMessage');
+          phone_check_flag = true;
+          flagCheck();
 
-              errorMessage.innerText = '사용 가능한 번호입니다.';
-              errorMessage.removeAttribute('class', 'errorMessage');
-              errorMessage.setAttribute('class', 'successMessage');
-              phone_check_flag = true;
-              flagCheck();
+        } else {
 
-            } else {
+          errorMessage.innerText = '이미 사용중인 번호입니다.'
+          errorMessage.removeAttribute('class', 'successMessage');
+          errorMessage.setAttribute('class', 'errorMessage');
+          phone_check_flag = false;
 
-              errorMessage.innerText = '이미 사용중인 번호입니다.'
-              errorMessage.removeAttribute('class', 'successMessage');
-              errorMessage.setAttribute('class', 'errorMessage');
-              phone_check_flag = false;
-
-            }
-          },
-          error : function(xhr, status, error) {
-            console.error("xhr : " + xhr);
-            console.error("status : " + status);
-            console.error("error : " + error);
-          }
-        }); // ajax
-    }
+        }
+      },
+      error : function(xhr, status, error) {
+        console.error("xhr : " + xhr);
+        console.error("status : " + status);
+        console.error("error : " + error);
+      }
+    }); // ajax
   };
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
   //모든 폼 제대로 입력됐나 확인
   function flagCheck() {
-
-    console.log('flagCheck');
 
     if(userId_check_flag == true &&
       pwd_check_flag == true &&
@@ -321,6 +269,12 @@ function pwd_chCheck() {
           'pointer-events':'auto',
           'background-color':'black'
         });
+      } else {
+        $('#join_submit').css({
+          'pointer-events':'none',
+          'background-color':'gray'
+        });
+
       }
   }
 
