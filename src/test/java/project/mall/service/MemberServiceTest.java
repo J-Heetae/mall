@@ -94,4 +94,19 @@ class MemberServiceTest {
         assertEquals(2, members.size());
     }
 
+
+    @Test
+    public void 회원_전화번호_변경() throws Exception {
+        //Given
+        Member member1 = Member.create("member1", "123", "213", "000");
+        memberService.join(member1);
+
+        //When
+        String newPhone = "111";
+
+        memberService.changePhone(member1.getId(), newPhone);
+
+        //Then
+        assertEquals(newPhone, member1.getPhone());
+    }
 }

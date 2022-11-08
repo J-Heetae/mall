@@ -46,8 +46,12 @@ public class Member extends BaseTimeEntity {
         this.email = email;
         this.phone = phone;
     }
-
     public static Member create(String userId, String pwd, String email, String phone) {
         return new Member(Authority.ADMIN, userId, pwd, email, phone);
+    }
+
+    //==비지니스 로직==//
+    public void phoneChange(String newPhone) {
+        this.phone = newPhone;
     }
 }

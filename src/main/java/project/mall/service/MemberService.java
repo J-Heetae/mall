@@ -23,9 +23,10 @@ public class MemberService {
      */
     @Transactional
     public Long join(Member member) {
-        validateDuplicateMember(member); // 중복 회원 검증
         memberRepository.save(member);
+
         log.info("MemberService.join 성공");
+
         return member.getId();
     }
 
@@ -38,7 +39,19 @@ public class MemberService {
         return memberRepository.findByUserId(userId)
                 .filter(m -> m.getPwd().equals(pwd))
                 .orElse(null);
+    }
 
+    @Transactional
+    public void changePhone(Long userId, String phone) {
+        Member member = findById(userId);
+
+        if(member != null) {
+            member.phoneChange(phone);
+
+            System.out.println("회원 연락처 수정 성공");
+        } else {
+            throw new IllegalStateException("존재하지 않는 회원입니다.");
+        }
     }
 
     private void validateDuplicateMember(Member member) {
