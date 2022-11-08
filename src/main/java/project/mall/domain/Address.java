@@ -21,8 +21,7 @@ public class Address extends BaseTimeEntity {
     @Column(name = "address_id")
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
+    @OneToOne(mappedBy = "address", fetch = FetchType.LAZY)
     private Member member;
 
     @OneToMany(mappedBy = "address", cascade = CascadeType.ALL)

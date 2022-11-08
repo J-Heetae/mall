@@ -35,7 +35,7 @@ public class Member extends BaseTimeEntity {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Order> orders = new ArrayList<>();
 
-    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Address address;
 
     //==생성 메서드==//
@@ -48,7 +48,6 @@ public class Member extends BaseTimeEntity {
     }
 
     public static Member create(String userId, String pwd, String email, String phone) {
-//        return new Member(Authority.MEMBER, userId, pwd, email, phone);
         return new Member(Authority.ADMIN, userId, pwd, email, phone);
     }
 }
