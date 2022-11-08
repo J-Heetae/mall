@@ -10,7 +10,7 @@
 <!-- daum 우편번호 서비스 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-<script type="text/javascript" th:src="@{/js/getAddress.js}"></script>
+<script type="text/javascript" th:src="@{/js/myPage.js}"></script>
 
 <link rel="stylesheet" th:href="@{/css/myPage.css}" />
 <link rel="stylesheet" th:href="@{/css/orderCartList.css}" />
@@ -32,16 +32,20 @@
                 연락처
             </div>
             <div class="modify_r">
-                <form>
+
+                <form action="/members/phoneChange" method="post">
                     <div>
-                        <input class="modify_input" type="text" th:value="${member.phone}"></input>
+                        <input type="text" class="modify_input" name="phone" id="phone"
+                               maxlength="11" th:value="${member.phone}">
                     </div>
                     <div>
-                        <button class="modify_button" type="submit">
+                        <button id="phone_update_button" class="modify_button" type="submit">
                             변경
                         </button>
                     </div>
                 </form>
+                <div class="errorMessage" id="update_phone_errorMessage"></div>
+
             </div>
         </div>
         <div class="modify_wrap">
@@ -51,14 +55,18 @@
             <div class="modify_r">
                 <form>
                     <div>
-                        <input class="modify_input" type="email" th:value="${member.email}"></input>
+                        <input type="email" class="modify_input" name="email" id="email"
+                               th:value="${member.email}">
                     </div>
                     <div>
-                        <button class="modify_button" type="submit">
+                        <button id="email_update_button" class="modify_button" type="submit">
                             변경
                         </button>
                     </div>
                 </form>
+
+                <div class="errorMessage" id="update_email_errorMessage"></div>
+
             </div>
         </div>
         <div class="modify_wrap">
@@ -66,15 +74,15 @@
                 주소
             </div>
             <div class="address">
-                <input id="zipcode" name="zipcode" class="modify_input" type="text" value=""></input>
+                <input id="zipcode" name="zipcode" class="modify_input" type="text" value="">
                 <button id="search_address_button" class="modify_button"> 검색</button>
                 <button class="modify_button"> 변경</button>
             </div>
             <div class="address">
-                <input id="address1" name="address1" class="modify_input" type="text" value=""></input>
+                <input id="address1" name="address1" class="modify_input" type="text" value="">
             </div>
             <div class="address">
-                <input id="address2" name="address2" class="modify_input" type="text" value=""></input>
+                <input id="address2" name="address2" class="modify_input" type="text" value="">
             </div>
         </div>
         <div>
@@ -148,7 +156,7 @@
 
             <li class="list_title">
                 <div class="check">
-                    <input type="checkbox"></input>
+                    <input type="checkbox">
                 </div>
                 <div class="info">
                     상품정보
@@ -166,7 +174,7 @@
             <li class="list_content">
                 <div class="cart_info_content">
                     <div class="check">
-                        <input type="checkbox"></input>
+                        <input type="checkbox">
                     </div>
 
                     <div class="item">

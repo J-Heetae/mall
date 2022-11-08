@@ -76,3 +76,13 @@ color: white;
 .modify_button:hover {
 cursor: pointer;
 }
+
+#phone_update_button{
+  pointer-events: none;
+  background-color: gray;
+}
+
+#email_update_button{
+  pointer-events: none;
+  background-color: gray;
+}
