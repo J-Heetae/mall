@@ -61,14 +61,16 @@ public class MemberController {
 
         if(result.hasErrors()) return "members/loginMember";
 
-        Long loginMemberId = memberService.login(form.getUserId(), form.getPwd()).getId();
+        Member loginMember = memberService.login(form.getUserId(), form.getPwd());
 
-        if(loginMemberId == null) {
+        if(loginMember == null) {
             result.reject("loginFail", "일치하는 계정이 없습니다. 로그인 정보를 확인해주세요.");
             return "members/loginMember";
         } else {
             //로그인 성공 처리
             log.info("login 성공");
+
+            Long loginMemberId = loginMember.getId();
 
             //세션 있으면 있는 세션 반환, 없으면 신규 세션 생성
             HttpSession session = request.getSession(true); //default가 true
@@ -99,10 +101,31 @@ public class MemberController {
     @GetMapping("members/myPage")
     public String myPage(@Login Long loginMemberId, Model model) {
         if(loginMemberId != null) {
-            Member loginMember = memberRepository.findById(loginMemberId).get();
-            model.addAttribute("member", loginMember);
+            Optional<Member> optionalMember = memberRepository.findById(loginMemberId);
+            if(optionalMember.isPresent()) {
+                model.addAttribute("member", optionalMember.get());
+            }
         } else {
             return "members/loginMember";
+        }
+
+        return "members/myPage";
+    }
+
+    /**
+     * 회원 연락처 변경
+     *
+     * @param loginMemberId 세션의 로그인 회원 아이디
+     */
+    @PostMapping("members/phoneChange")
+    public String phoneChange(@Login Long loginMemberId, HttpServletRequest request, Model model) {
+        String phone = request.getParameter("phone");
+        memberService.changePhone(loginMemberId, phone);
+
+        Optional<Member> optionalMember = memberRepository.findById(loginMemberId);
+
+        if(optionalMember.isPresent()) {
+            model.addAttribute("member", optionalMember.get());
         }
 
         return "members/myPage";
